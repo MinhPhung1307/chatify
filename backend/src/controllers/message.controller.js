@@ -26,7 +26,7 @@ export const getMessagesByUserId = async (req, res) => {
             ],
         });
 
-        res.status(200).json({ messages });
+        res.status(200).json(messages);
     } catch (error) {
         console.log('Error in getMessagesByUserId:', error.message);
         res.status(500).json({ message: 'Interval Server Error' });
