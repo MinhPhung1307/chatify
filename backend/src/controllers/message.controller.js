@@ -68,7 +68,7 @@ export const sendMessage = async (req, res) => {
 
         // todo: sent message in real-time if user is online
 
-        res.status(201).json({ message: 'Message sent successfully', newMessage });
+        res.status(201).json(newMessage);
     } catch (error) {
         console.log('Error in sendMessage:', error.message);
         res.status(500).json({ message: 'Interval Server Error' });
