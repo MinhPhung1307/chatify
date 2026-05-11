@@ -1,8 +1,8 @@
 import 'dotenv/config';
 
 export const ENV = {
-    PORT: process.env.PORT  ,
-    MONGGO_URI: process.env.MONGGO_URI,
+    PORT: process.env.PORT,
+    NEON_DATABASE_URL: process.env.NEON_DATABASE_URL,
     JWT_SECRET: process.env.JWT_SECRET,
     NODE_ENV: process.env.NODE_ENV,
     CLIENT_URL: process.env.CLIENT_URL,

@@ -1,15 +1,19 @@
-import mongoose from 'mongoose';
+import { PrismaClient } from '@prisma/client';
 import { ENV } from './env.js';
+
+const prisma = new PrismaClient();
 
 export const connectDB = async () => {
     try {
-        const { MONGGO_URI } = ENV;
-        if (!MONGGO_URI) throw new Error('MONGGO_URI is not set');
+        const { NEON_DATABASE_URL } = ENV;
+        if (!NEON_DATABASE_URL) throw new Error('NEON_DATABASE_URL is not set');
 
-        const conn = await mongoose.connect(MONGGO_URI);
-        console.log(`MongoDB Connected: ${conn.connection.host}`);
+        await prisma.$connect();
+        console.log(`Neon PostgreSQL Connected`);
     } catch (error) {
-        console.error(`Error connection to MongoDB: ${error.message}`);
-        process.exit(1); // 1 status code means fail, 0 means success
+        console.error(`Error connection to Neon: ${error.message}`);
+        process.exit(1);
     }
 };
+
+export default prisma;

@@ -1,25 +1,44 @@
-import mongoose from "mongoose";
+import prisma from '../lib/db.js';
 
-const userSchema = new mongoose.Schema({
-    email: {
-        type: String,
-        required: true,
-        unique: true,
+export const User = {
+    async findOne(conditions) {
+        return await prisma.user.findFirst({
+            where: conditions,
+        });
     },
-    fullName: {
-        type: String,
-        required: true,
-    },
-    password: {
-        type: String,
-        required: true,
-        minlength: 6,
-    },
-    profilePic: {
-        type: String,
-        default: '',
-    },
-}, { timestamps: true }); // createdAt & updatedAt
 
-const User = mongoose.model('User', userSchema);
+    async findById(id) {
+        return await prisma.user.findUnique({
+            where: { id },
+        });
+    },
+
+    async findByIdAndUpdate(id, data, options = {}) {
+        return await prisma.user.update({
+            where: { id },
+            data,
+        });
+    },
+
+    async find(conditions) {
+        return await prisma.user.findMany({
+            where: conditions,
+        });
+    },
+
+    async exists(conditions) {
+        const user = await prisma.user.findFirst({
+            where: conditions,
+            select: { id: true },
+        });
+        return !!user;
+    },
+
+    async create(data) {
+        return await prisma.user.create({
+            data,
+        });
+    },
+};
+
 export default User;

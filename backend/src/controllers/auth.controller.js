@@ -33,22 +33,17 @@ export const signup = async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, salt);
 
         // create new user
-        const newUser = new User({
+        const savedUser = await User.create({
             fullName,
             email,
             password: hashedPassword,
-        })
+        });
 
-        if (newUser){
-            // generateToken(newUser._id, res);
-            // await newUser.save();
+        if (savedUser) {
+            generateToken(savedUser.id, res);
 
-            // Persist user first, then issue auth cookie
-            const savedUser = await newUser.save();
-            generateToken(savedUser._id, res);
-
-            res.status(201).json({ 
-                _id: savedUser._id,
+            res.status(201).json({
+                _id: savedUser.id,
                 fullName: savedUser.fullName,
                 email: savedUser.email,
                 profilePic: savedUser.profilePic,
@@ -85,10 +80,10 @@ export const login = async (req, res) => {
         const isPasswordCorrect = await bcrypt.compare(password, user.password);
         if (!isPasswordCorrect) return res.status(400).json({ message: 'Invalid credentials' });
 
-        generateToken(user._id, res);
+        generateToken(user.id, res);
 
-        res.status(200).json({ 
-            _id: user._id,
+        res.status(200).json({
+            _id: user.id,
             fullName: user.fullName,
             email: user.email,
             profilePic: user.profilePic,

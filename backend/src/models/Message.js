@@ -1,26 +1,24 @@
-import mongoose from 'mongoose';
+import prisma from '../lib/db.js';
 
-const messageSchema = new mongoose.Schema(
-    {
-        senderId: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'User',
-            required: true,
-        },
-        receiverId: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'User',
-            required: true,
-        },
-        text: { 
-            type: String,
-            trim: true,
-            maxlength: 2000,
-        },
-        image: { type: String },
-    }, { timestamps: true }
-)
+export const Message = {
+    async find(conditions) {
+        return await prisma.message.findMany({
+            where: conditions,
+            orderBy: { createdAt: 'asc' },
+        });
+    },
 
-const Message = mongoose.model('Message', messageSchema);
+    async create(data) {
+        return await prisma.message.create({
+            data,
+        });
+    },
+
+    async findMany(conditions) {
+        return await prisma.message.findMany({
+            where: conditions,
+        });
+    },
+};
 
 export default Message;

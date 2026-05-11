@@ -14,6 +14,7 @@
   "dependencies": {
     "@arcjet/inspect": "^1.0.0-beta.10",
     "@arcjet/node": "^1.0.0-beta.10",
+    "@prisma/client": "^5.22.0",
     "bcryptjs": "^2.4.3",
     "chatify-app": "file:..",
     "cloudinary": "^2.5.1",
@@ -22,7 +23,8 @@
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.10.1",
+    "pg": "^8.20.0",
+    "prisma": "^5.22.0",
     "resend": "^6.0.2",
     "socket.io": "^4.8.1"
   },
